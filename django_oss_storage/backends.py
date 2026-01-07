@@ -107,7 +107,7 @@ class OssStorage(Storage):
             # Load the key into a temporary file
             tmpf = SpooledTemporaryFile(max_size=10*1024*1024)  # 10MB
             obj = self.bucket.get_object(target_name)
-            logger().info("content length: %d, requestid: %s", obj.content_length, obj.request_id)
+            logger().debug("content length: %d, requestid: %s", obj.content_length, obj.request_id)
             if obj.content_length is None:
                 shutil.copyfileobj(obj, tmpf)
             else:
@@ -237,7 +237,7 @@ class OssMediaStorage(OssStorage):
 class OssStaticStorage(OssStorage):
     def __init__(self):
         self.location = settings.STATIC_URL
-        logger().info("locatin: %s", self.location)
+        logger().debug("locatin: %s", self.location)
         super(OssStaticStorage, self).__init__()
 
 
